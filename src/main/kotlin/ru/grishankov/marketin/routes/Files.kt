@@ -9,6 +9,7 @@ fun Application.download() {
         static("/files") {
             files("resources/img")
             files("resources/apk")
+            files("resources/market")
         }
     }
 }

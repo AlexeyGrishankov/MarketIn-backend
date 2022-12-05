@@ -11,6 +11,7 @@ import ru.grishankov.marketin.database.DatabaseConnection
 import ru.grishankov.marketin.routes.appData
 import ru.grishankov.marketin.routes.download
 import ru.grishankov.marketin.routes.listAppRoute
+import ru.grishankov.marketin.routes.updateApp
 import java.io.File
 
 fun main() {
@@ -32,6 +33,7 @@ fun Application.routes() {
     with(DatabaseConnection.database) {
         listAppRoute(this)
         appData(this)
+        updateApp(this)
         download()
     }
 }
