@@ -3,10 +3,14 @@ package ru.grishankov.marketin
 import io.ktor.http.*
 import io.ktor.serialization.kotlinx.json.*
 import io.ktor.server.application.*
+import io.ktor.server.application.*
 import io.ktor.server.engine.*
 import io.ktor.server.netty.*
+import io.ktor.server.plugins.callloging.*
 import io.ktor.server.plugins.contentnegotiation.*
 import io.ktor.server.plugins.cors.routing.*
+import io.ktor.server.request.*
+import org.slf4j.event.*
 import ru.grishankov.marketin.database.DatabaseConnection
 import ru.grishankov.marketin.routes.appData
 import ru.grishankov.marketin.routes.download
@@ -24,6 +28,10 @@ fun main() {
             allowHeader(HttpHeaders.AccessControlAllowOrigin)
             allowHeader(HttpHeaders.ContentType)
             allowHeader(HttpHeaders.Authorization)
+        }
+        install(CallLogging) {
+            level = Level.INFO
+            filter { call -> call.request.path().startsWith("/") }
         }
         routes()
     }.start(wait = true)

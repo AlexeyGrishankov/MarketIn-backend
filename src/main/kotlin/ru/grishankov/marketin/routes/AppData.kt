@@ -9,6 +9,7 @@ import org.ktorm.dsl.eq
 import org.ktorm.entity.filter
 import org.ktorm.entity.find
 import org.ktorm.entity.map
+import org.ktorm.entity.sortedBy
 import ru.grishankov.marketin.database.table.apps
 import ru.grishankov.marketin.database.table.toApp
 import ru.grishankov.marketin.database.table.toVersion
@@ -24,7 +25,7 @@ fun Application.appData(db: Database) {
             if (appId == null) {
                 call.respond(
                     status = HttpStatusCode.BadRequest,
-                    message = "Ты хуйню сделал, долбаеб, ID проверь, еблан"
+                    message = "Application ID not found"
                 )
             }
 
@@ -33,11 +34,11 @@ fun Application.appData(db: Database) {
             if (app == null) {
                 call.respond(
                     status = HttpStatusCode.BadRequest,
-                    message = "Ты хуйню сделал, долбаеб, такого приложение нет"
+                    message = "Application with ID = $appId not found"
                 )
             }
 
-            val versions = db.versions.filter { it.idApp eq appId!! }.map { it.toVersion() }
+            val versions = db.versions.filter { it.idApp eq appId!! }.sortedBy { it.id }.map { it.toVersion() }
 
             val appData = AppData(
                 id = app!!.id,

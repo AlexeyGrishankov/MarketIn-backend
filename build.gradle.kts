@@ -37,4 +37,5 @@ dependencies {
     implementation("de.mkammerer:argon2-jvm:2.11")
     implementation("org.ktorm:ktorm-core:${ktorm_version}")
     implementation("org.postgresql:postgresql:42.1.4")
+    implementation("io.ktor:ktor-server-call-logging-jvm:2.1.3")
 }

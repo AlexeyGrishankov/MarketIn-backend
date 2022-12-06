@@ -17,6 +17,7 @@ object AppVersionTable : Table<AppVersionEntity>("versions") {
     val desc = varchar("desc").bindTo { it.desc }
     val url = varchar("url").bindTo { it.url }
     val versionCode = int("version_code").bindTo { it.versionCode }
+    val date = varchar("date").bindTo { it.date }
 }
 
 interface AppVersionEntity : Entity<AppVersionEntity> {
@@ -28,10 +29,11 @@ interface AppVersionEntity : Entity<AppVersionEntity> {
     val desc: String?
     val url: String
     val versionCode: Int
+    val date: String
 }
 
 fun AppVersionEntity.toVersion(): AppVersion {
-    return AppVersion(id, idApp, title, versionCode,desc ?: "", "$PATH_SERVER_FILES/$url")
+    return AppVersion(id, idApp, title, versionCode,desc ?: "", "$PATH_SERVER_FILES/$url", date)
 }
 
 val Database.versions
